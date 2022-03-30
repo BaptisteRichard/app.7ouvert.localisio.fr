@@ -4,10 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.view.KeyEvent;
@@ -46,6 +50,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 */
+    public class WebAppInterface {
+        @JavascriptInterface
+        public void copyToClipboard(String text) {
+            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("demo", text);
+            clipboard.setPrimaryClip(clip);
+        }
+    }
+
     public class MyAppWebViewClient extends WebViewClient {
 
         @Override
@@ -76,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         //noinspection RedundantCast
         mWebView = (WebView) findViewById(R.id.activity_main_webview);
         mWebView.clearCache(true);
+
         // Configure la webview pour l'utilisation du javascript
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -85,7 +99,9 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setGeolocationEnabled(true);
         webSettings.setBuiltInZoomControls(true);
         webSettings.setSupportZoom(false);
+
         mWebView.setWebChromeClient(new WebChromeClient());
+        mWebView.addJavascriptInterface(new WebAppInterface(), "NativeAndroid");
 
         // Autorise le stockage DOM (Document Object Model)
         webSettings.setDomStorageEnabled(true);
@@ -93,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setDatabaseEnabled(true);
 
         // Charge l'url
-        mWebView.loadUrl("https://isitopen.localisio.fr/?app=1.0.0");
+        mWebView.loadUrl("https://dev.7ouvert.localisio.fr/?app=1.0.0");
 
         /*
          * Les instructions ci-dessous permettent de forcer l'application
