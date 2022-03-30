@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "Localisio"
+rootProject.name = "isitopen"

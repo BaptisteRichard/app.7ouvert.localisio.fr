@@ -1,20 +1,15 @@
-package fr.localisio;
+package fr.isitopen;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.webkit.GeolocationPermissions;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -30,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
      * WebChromeClient subclass handles UI-related calls
      * Note: think chrome as in decoration, not the Chrome browser
      */
+    /*
     public class GeoWebChromeClient extends WebChromeClient {
         @Override
         public void onGeolocationPermissionsShowPrompt(String origin,
@@ -37,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
             // Geolocation permissions coming from this app's Manifest will only be valid for devices with
             // API_VERSION < 23. On API 23 and above, we must check for permissions, and possibly
             // ask for them.
-            String perm = Manifest.permission.ACCESS_FINE_LOCATION;
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
                     ContextCompat.checkSelfPermission(MainActivity.this, perm) == PackageManager.PERMISSION_GRANTED) {
                 // we're on SDK < 23 OR user has already granted permission
@@ -50,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
+*/
     public class MyAppWebViewClient extends WebViewClient {
 
         @Override
@@ -90,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setGeolocationEnabled(true);
         webSettings.setBuiltInZoomControls(true);
         webSettings.setSupportZoom(false);
-        mWebView.setWebChromeClient(new GeoWebChromeClient());
+        mWebView.setWebChromeClient(new WebChromeClient());
 
         // Autorise le stockage DOM (Document Object Model)
         webSettings.setDomStorageEnabled(true);
@@ -98,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         webSettings.setDatabaseEnabled(true);
 
         // Charge l'url
-        mWebView.loadUrl("https://localisio.fr/?app=1.0.1");
+        mWebView.loadUrl("https://isitopen.localisio.fr/?app=1.0.0");
 
         /*
          * Les instructions ci-dessous permettent de forcer l'application

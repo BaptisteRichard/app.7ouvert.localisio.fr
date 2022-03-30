@@ -1,4 +1,4 @@
-package fr.localisio;
+package fr.isitopen;
 
 import org.junit.Test;
 
